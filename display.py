@@ -22,15 +22,15 @@ class Display:
         self.canvas.pack(fill=tk.BOTH, expand=True)
 
 
-        empty_image1 = Image.new('RGB', (image_width, image_height), (0, 0, 0))
-        self.displayable_image1 = ImageTk.PhotoImage(empty_image1)
+        empty_image_left = Image.new('RGB', (image_width, image_height), (0, 0, 0))
+        self.displayable_image_left = ImageTk.PhotoImage(empty_image_left)
 
-        empty_image2 = Image.new('RGB', (image_width, image_height), (0, 0, 0))
-        self.displayable_image2 = ImageTk.PhotoImage(empty_image2)
+        empty_image_right = Image.new('RGB', (image_width, image_height), (0, 0, 0))
+        self.displayable_image_right = ImageTk.PhotoImage(empty_image_right)
 
-        self.frame.image1 = self.canvas.create_image((image_width/2, image_height/2), image=self.displayable_image1)
-        self.frame.image2 = self.canvas.create_image((image_width/2, image_height/2), image=self.displayable_image2)
-        self.canvas.move(self.frame.image2, image_width, 0)
+        self.frame.frame_image_left = self.canvas.create_image((image_width/2, image_height/2), image=self.displayable_image_left)
+        self.frame.frame_image_right = self.canvas.create_image((image_width/2, image_height/2), image=self.displayable_image_right)
+        self.canvas.move(self.frame.frame_image_right, image_width, 0)
 
         self.frame.pack(fill=tk.BOTH, expand=True)
 
@@ -43,12 +43,12 @@ class Display:
         self.window.mainloop()
 
     '''
-    This function allows displayed images to be changed
+    This function allows to change the left image
     '''
-    def changeImage1(self, new_image: Image):
-        self.displayable_image1 = ImageTk.PhotoImage(new_image)
-        self.image1 = new_image
-        self.frame.image1 = self.canvas.create_image((self.image_width/2, self.image_height/2), image=self.displayable_image1)
+    def changeImageLeft(self, new_image: Image):
+        self.displayable_image_left = ImageTk.PhotoImage(new_image)
+        self.image_left = new_image
+        self.frame.frame_image_left = self.canvas.create_image((self.image_width / 2, self.image_height / 2), image=self.displayable_image_left)
 
         #self.displayable_image = ImageTk.PhotoImage(new_image)
         #self.panel.configure(image=self.displayable_image)
@@ -56,11 +56,11 @@ class Display:
 
 
     '''
-    This function allows displayed images to be changed
+    This function allows to change the right image
     '''
-    def changeImage2(self, new_image: Image):
-        self.displayable_image2 = ImageTk.PhotoImage(new_image)
-        self.image2 = new_image
-        self.frame.image2 = self.canvas.create_image((self.image_width/2, self.image_height/2), image=self.displayable_image2)
-        self.canvas.move(self.frame.image2, self.image_width, 0)
+    def changeImageRight(self, new_image: Image):
+        self.displayable_image_right = ImageTk.PhotoImage(new_image)
+        self.image_right = new_image
+        self.frame.frame_image_right = self.canvas.create_image((self.image_width / 2, self.image_height / 2), image=self.displayable_image_right)
+        self.canvas.move(self.frame.frame_image_right, self.image_width, 0)
 

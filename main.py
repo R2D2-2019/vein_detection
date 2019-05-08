@@ -8,14 +8,14 @@ def swapper():
     imageIndex = False
     image1 = Image.open("D:\\Images\\testImage.png")
     image2 = Image.open("D:\\Images\\testImage2.png")
-    window.changeImage2(image1)
+    window.changeImageRight(image1)
 
     while (True):
         if (imageIndex):
-            window.changeImage1(image1)
+            window.changeImageLeft(image1)
             imageIndex = False
         else:
-            window.changeImage1(image2)
+            window.changeImageLeft(image2)
             imageIndex = True
         time.sleep(1)
 
