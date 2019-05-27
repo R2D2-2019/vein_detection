@@ -78,5 +78,7 @@ def image_edge_detection(original: Image) -> Image:
             #set pixel value
             edge_detected_image.putpixel((x, y), average_result)
 
+
+
     #return result
     return edge_detected_image
