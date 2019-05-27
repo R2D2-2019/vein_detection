@@ -1,29 +1,13 @@
-import display
-import time
-import threading
-from PIL import Image
+import IR_camera_c as cam
+import cv2
 
-def swapper(display):
-    imageIndex = False
-    image1 = Image.open("D:\\Images\\testImage.png")
-    image2 = Image.open("D:\\Images\\testImage2.png")
-    display.changeImageRight(image1)
-
+def main():
+    cam_class = cam.camera_c()
+    IR_cam = cam_class.choose_camera(1)
     while (True):
-        if (imageIndex):
-            display.changeImageLeft(image1)
-            imageIndex = False
-        else:
-            display.changeImageLeft(image2)
-            imageIndex = True
-        time.sleep(1)
+        (ret, frame) = IR_cam.read()
+        cv2.imshow('Frame', frame)
+        cam_class.commands(IR_cam, frame)
 
 
-
-window = display.Display(300, 291)
-
-#Create workers that work from separate thread
-worker1 = threading.Thread(target=swapper, kwargs=dict(display=window))
-worker1.start()
-
-window.startWindowLoop()
+main()
