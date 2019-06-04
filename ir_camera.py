@@ -1,20 +1,16 @@
 import cv2
-import numpy as np
 
 
-class camera_c():
-
+class Camera:
     def exit_cam(self, cap):
         cap.release()
         cv2.destroyAllWindows()
-
 
     def choose_camera(self, camera):
         cap = cv2.VideoCapture(camera)
         if not cap.isOpened():
             raise RuntimeError('Error opening camera.')
         return cap
-
 
     def commands(self, cap, frame):
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -23,7 +19,6 @@ class camera_c():
             snapshot = frame.copy()
             cv2.imshow('Snapshot', snapshot)
             self.get_pixel_values(snapshot)
-
 
     def get_pixel_values(self, snap):
         height = snap.shape[0]
