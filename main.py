@@ -1,13 +1,17 @@
-import IR_camera_c as cam
+import camera_handler as camera
 import cv2
+import time
+
 
 def main():
-    cam_class = cam.camera_c()
-    IR_cam = cam_class.choose_camera(1)
-    while (True):
-        (ret, frame) = IR_cam.read()
+    cam_class = camera.CameraHandler(1)
+    # wait for camera to warm up
+    time.sleep(1)
+    while True:
+        (ret, frame) = cam_class.camera.read()
         cv2.imshow('Frame', frame)
-        cam_class.commands(IR_cam, frame)
+        cam_class.commands(frame)
 
 
-main()
+if __name__ == "__main__":
+    main()
