@@ -13,10 +13,10 @@ class CameraHandler:
             print('Error opening camera.')
             sys.exit(1)
 
-    def get_width(self):
+    def get_camera_width(self):
         return self.__width
 
-    def get_height(self):
+    def get_camera_height(self):
         return self.__height
 
     def resize_window(self, image, width=None, height=None):
@@ -39,17 +39,17 @@ class CameraHandler:
 
         return resize_image
 
-    def exit_cam(self):
+    def exit_camera(self):
         self.camera.release()
         cv2.destroyAllWindows()
         sys.exit(0)
 
-    def snap_shot(self, frame):
-        snapshot = frame.copy()
-        cv2.imshow('Snapshot', snapshot)
+    def get_current_frame(self, frame):
+        current_frame = frame.copy()
+        cv2.imshow('Snapshot', current_frame)
 
     def commands(self, frame):
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            self.exit_cam()
+            self.exit_camera()
         elif cv2.waitKey(1) & 0xFF == ord('s'):
-            self.snap_shot(frame)
+            self.get_current_frame(frame)
