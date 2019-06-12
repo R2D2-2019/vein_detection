@@ -19,12 +19,12 @@ class CameraHandler:
     def get_camera_height(self):
         return self.__height
 
-    def resize_window(self, image, width=None, height=None):
-        (current_height, current_width) = image.shape[:2]
+    def resize_window(self, frame, width=None, height=None):
+        (current_height, current_width) = frame.shape[:2]
 
         # If specified width and height is set to none, return current image
         if width is None and height is None:
-            return image
+            return frame
 
         if width is None:
             ratio = height / float(current_height)
@@ -33,7 +33,7 @@ class CameraHandler:
             ratio = width / float(current_width)
             dimension = (width, int(current_height * ratio))
 
-        resize_image = cv2.resize(image, dimension, interpolation=cv2.INTER_AREA)
+        resize_image = cv2.resize(frame, dimension, interpolation=cv2.INTER_AREA)
         self.__width = dimension[0]
         self.__height = dimension[1]
 
@@ -45,11 +45,13 @@ class CameraHandler:
         sys.exit(0)
 
     def get_current_frame(self, frame):
-        current_frame = frame.copy()
-        cv2.imshow('Snapshot', current_frame)
+        return frame.copy()
+
+    def show_current_frame(self, frame):
+        cv2.imshow('Snapshot', self.get_current_frame(frame))
 
     def commands(self, frame):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             self.exit_camera()
         elif cv2.waitKey(1) & 0xFF == ord('s'):
-            self.get_current_frame(frame)
+            self.show_current_frame(frame)
