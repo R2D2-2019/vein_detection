@@ -4,7 +4,7 @@ import time
 
 
 def main():
-    cam_class = camera.CameraHandler(1)
+    cam_class = camera.CameraHandler(0)
     # wait for camera to warm up
     time.sleep(1)
     while True:

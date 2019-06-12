@@ -13,18 +13,23 @@ class CameraHandler:
             print('Error opening camera.')
             sys.exit(1)
 
-    def get_width(self):
+    # This function returns the camera output width (int)
+    def get_camera_width(self):
         return self.__width
 
-    def get_height(self):
+    # This function returns the camera output height (int)
+    def get_camera_height(self):
         return self.__height
 
-    def resize_window(self, image, width=None, height=None):
-        (current_height, current_width) = image.shape[:2]
+    # With this function you can resize the output window
+    # frame is the output from the camera
+    # width and height (int) can be set and are None by default
+    def resize_window(self, frame, width=None, height=None):
+        (current_height, current_width) = frame.shape[:2]
 
-        # If specified width and height is set to none, return current image
+        # If specified width and height are set to None, return current frame
         if width is None and height is None:
-            return image
+            return frame
 
         if width is None:
             ratio = height / float(current_height)
@@ -33,23 +38,33 @@ class CameraHandler:
             ratio = width / float(current_width)
             dimension = (width, int(current_height * ratio))
 
-        resize_image = cv2.resize(image, dimension, interpolation=cv2.INTER_AREA)
+        resize_image = cv2.resize(frame, dimension, interpolation=cv2.INTER_AREA)
         self.__width = dimension[0]
         self.__height = dimension[1]
 
         return resize_image
 
-    def exit_cam(self):
+    # When this function is called the camera will be released, and shut down.
+    # Might need to change sys.exit(0) since in the future you might not want
+    # to close the entire application when closing the camera.
+    def exit_camera(self):
         self.camera.release()
         cv2.destroyAllWindows()
         sys.exit(0)
 
-    def snap_shot(self, frame):
-        snapshot = frame.copy()
-        cv2.imshow('Snapshot', snapshot)
+    # This function returns a frame from the camera at the point this function is called
+    def get_current_frame(self, frame):
+        return frame.copy()
 
+    # this function displays the frame given as a parameter
+    def show_current_frame(self, frame):
+        cv2.imshow('Snapshot', self.get_current_frame(frame))
+
+    # this function provides the user with keyboard commands / actions
+    # press 's' to call show_current_frame(frame)
+    # press 'q' to call exit_camera()
     def commands(self, frame):
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            self.exit_cam()
+            self.exit_camera()
         elif cv2.waitKey(1) & 0xFF == ord('s'):
-            self.snap_shot(frame)
+            self.show_current_frame(frame)
