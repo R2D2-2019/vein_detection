@@ -8,7 +8,7 @@ class VeinDetection:
     def __init__(self, camera_id):
         self.__camera = camera.CameraHandler(camera_id)
         self.__clahe_amount = 2
-        self.__median_blur = False
+        self.__reduce_noise = False
 
     # Canny Edge Detection step, finds the edges of the body parts and veins
     # inside the supplied frame and returns the resulted frame
@@ -38,7 +38,7 @@ class VeinDetection:
             output_frame = clahe_object.apply(output_frame)
 
         # Reduce the noise that appeared through CLAHE, using median filetring
-        if self.__median_blur:
+        if self.__reduce_noice:
             output_frame = cv2.bilateralFilter(output_frame, 9, 75, 75)
 
         result = np.hstack((input_frame_grayscaled, output_frame))
