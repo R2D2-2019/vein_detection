@@ -1,16 +1,15 @@
-import camera_handler as camera
+import hsv as hsv
 import cv2
-import time
-
 
 def main():
-    cam_class = camera.CameraHandler(0)
-    # wait for camera to warm up
-    time.sleep(1)
+    img = cv2.imread("img/test_image.png")
+    hsv_class = hsv.HSV()
     while True:
-        (ret, frame) = cam_class.camera.read()
-        cv2.imshow('Frame', frame)
-        cam_class.commands(frame)
+        frame = img.copy()
+        frame = hsv_class.threshold_frame(frame)
+        cv2.imshow('image', frame)
+        if cv2.waitKey(1) & 0xFF is ord('q'):
+            break
 
 
 if __name__ == "__main__":
