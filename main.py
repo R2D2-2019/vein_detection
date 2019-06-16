@@ -1,16 +1,35 @@
-import hsv as hsv
-import cv2
+from time import sleep
+from sys import platform
+import signal
+
+from client.comm import Comm
+from mod import Module
+
+should_stop = False
+
 
 def main():
-    img = cv2.imread("img/test_image.png")
-    hsv_class = hsv.HSV()
-    while True:
-        frame = img.copy()
-        frame = hsv_class.threshold_frame(frame)
-        cv2.imshow('image', frame)
-        if cv2.waitKey(1) & 0xFF is ord('q'):
-            break
+    print("Starting application...\n")
+    module = Module(Comm())
+    print("Module created...")
 
+    while not should_stop:
+        module.process()
+        sleep(0.05)
+
+    module.stop()
+
+
+def stop(signal, frame):
+    global should_stop
+    should_stop = True
+
+
+signal.signal(signal.SIGINT, stop)
+signal.signal(signal.SIGTERM, stop)
+
+if platform != "win32":
+    signal.signal(signal.SIGQUIT, stop)
 
 if __name__ == "__main__":
     main()
