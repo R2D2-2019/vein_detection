@@ -14,7 +14,7 @@ class VeinDetection:
     # NOTE: This function should be made private (since these functions are going to get called inside run())
     # it's public for testing purposes now.
     def canny_edge_detection(self, frame):
-        return cv2.Canny(frame, 100, 200)
+        return frame
 
     # CLAHE (Contrast Limited Adaptive Histogram Equalization)
     # creates a better constrast between veins and the skin on supplied frame
@@ -44,15 +44,14 @@ class VeinDetection:
     # NOTE: This function should be made private (since these functions are going to get called inside run())
     # it's public for testing purposes now.
     def image_denoising(self, frame):
-            return cv2.bilateralFilter(frame, 9, 75, 75)
+            return frame
 
     # Adaptive Thresholding is used to create a black/white image from supplied frame
     # returns a black/white image
     # NOTE: This function should be made private (since these functions are going to get called inside run())
     # it's public for testing purposes now.
     def adaptive_thresholding(self, frame):
-        input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        return cv2.adaptiveThreshold(input_frame_grayscaled, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+        return frame
 
     # this function provides the user with keyboard commands / actions
     # These commands can be helpful for debugging
