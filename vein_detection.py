@@ -81,8 +81,6 @@ class VeinDetection:
             (ret, frame) = self.__camera.camera.read()
             input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             output_frame = self.clahe(frame, self.__clahe_amount)
-            # output_frame = self.adaptive_thresholding(frame)
-            # output_frame = self.canny_edge_detection(frame)
             display = np.hstack((input_frame_grayscaled, output_frame))
             cv2.imshow('Vein Detection', display)
             self.commands(frame, display)
