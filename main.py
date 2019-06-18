@@ -1,15 +1,13 @@
-import hsv as hsv
-import cv2
+import vein_detection as vd
+import time
+
 
 def main():
-    img = cv2.imread("img/test_image.png")
-    hsv_class = hsv.HSV()
-    while True:
-        frame = img.copy()
-        frame = hsv_class.threshold_frame(frame)
-        cv2.imshow('image', frame)
-        if cv2.waitKey(1) & 0xFF is ord('q'):
-            break
+    vd_class = vd.VeinDetection(0)
+
+    # wait for camera to warm up
+    time.sleep(1)
+    vd_class.run()
 
 
 if __name__ == "__main__":

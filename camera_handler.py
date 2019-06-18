@@ -58,13 +58,4 @@ class CameraHandler:
 
     # this function displays the frame given as a parameter
     def show_current_frame(self, frame):
-        cv2.imshow('Snapshot', self.get_current_frame(frame))
-
-    # this function provides the user with keyboard commands / actions
-    # press 's' to call show_current_frame(frame)
-    # press 'q' to call exit_camera()
-    def commands(self, frame):
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            self.exit_camera()
-        elif cv2.waitKey(1) & 0xFF == ord('s'):
-            self.show_current_frame(frame)
+        cv2.imshow('frame', self.get_current_frame(frame))
