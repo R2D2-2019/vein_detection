@@ -16,7 +16,7 @@ class VeinDetection:
     # NOTE: This function should be made private (since these functions are going to get called inside run())
     # it's public for testing purposes now.
     def canny_edge_detection(self, frame):
-        return frame
+        return cv2.Canny(frame, threshold1=100, threshold2=200)
 
     # CLAHE (Contrast Limited Adaptive Histogram Equalization)
     # creates a better constrast between veins and the skin on supplied frame
