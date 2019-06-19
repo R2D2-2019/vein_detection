@@ -67,6 +67,7 @@ class VeinDetection:
     # press 'v' to show a snapshot of the current display
     # press ']' to increase clahe_amount
     # press '[' to decrease clahe_amount
+    # press 'h' to spawn the HSV slider
     def commands(self, frame, display):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             self.__camera.exit_camera()
@@ -78,7 +79,9 @@ class VeinDetection:
             if self.__clahe_amount > 1:
                 self.__clahe_amount -= 1
         elif cv2.waitKey(1) & 0xFF == ord(']'):
-                self.__clahe_amount += 1
+            self.__clahe_amount += 1
+        elif cv2.waitKey(1) & 0xff == ord('h'):
+            self.__hsv.enable_trackbar()
 
     # This is the main loop for vein detection.
     # Run this after calling the constructor
