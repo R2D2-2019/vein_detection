@@ -13,12 +13,10 @@ class VeinDetection:
 
     # Canny Edge Detection step, finds the edges of the body parts and veins
     # inside the supplied frame and returns the resulted frame
-    # NOTE: This function should be made private (since these functions are going to get called inside run())
-    # it's public for testing purposes now.
     # Threshold values are the minimum and maximum values that are compared in the canny edge algorithm.
     # The difference between the two is how mow sensitive your result will be.
     # A lower gap means less edges might be detected. Vice versa.
-    def canny_edge_detection(self, frame):
+    def __canny_edge_detection(self, frame):
         return cv2.Canny(frame, threshold1=100, threshold2=200)
 
     # CLAHE (Contrast Limited Adaptive Histogram Equalization)
@@ -29,9 +27,7 @@ class VeinDetection:
     # Contrast limiting is applied to avoid noise amplification
     # The result of this function is a side-by-side comparison between
     # a grayscaled version of the original frame (left) and one with clahe applied (right)
-    # NOTE: This function should be made private (since these functions are going to get called inside run())
-    # it's public for testing purposes now.
-    def clahe(self, frame, amount=1):
+    def __clahe(self, frame, amount=1):
         input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # create a CLAHE object
@@ -49,18 +45,14 @@ class VeinDetection:
     # The parameter kernel_size is used to determine the amount of pixels used for the kernel in the median blur
     # A larger kernel means more pixels are used in the calculation but the image could become more blurry
     # Returns frame with less noise
-    # NOTE: This function should be made private (since these functions are going to get called inside run())
-    # it's public for testing purposes now.
-    def image_denoising(self, frame, kernel_size=5):
+    def __image_denoising(self, frame, kernel_size=5):
         frame = cv2.medianBlur(frame, kernel_size)
 
         return frame
 
     # Adaptive Thresholding is used to create a black/white image from supplied frame
     # returns a black/white image
-    # NOTE: This function should be made private (since these functions are going to get called inside run())
-    # it's public for testing purposes now.
-    def adaptive_thresholding(self, frame):
+    def __adaptive_thresholding(self, frame):
         return frame
 
     # this function provides the user with keyboard commands / actions
@@ -93,7 +85,7 @@ class VeinDetection:
             (ret, frame) = self.__camera.camera.read()
             frame = self.__hsv.threshold_frame(frame)
             input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            output_frame = self.clahe(frame, self.__clahe_amount)
+            output_frame = self.__clahe(frame, self.__clahe_amount)
             display = np.hstack((input_frame_grayscaled, output_frame))
             cv2.imshow('Vein Detection', display)
             self.commands(frame, display)
