@@ -36,7 +36,7 @@ class VeinDetection:
         output_frame = input_frame_grayscaled
         for __ in range(amount):
             output_frame = clahe_object.apply(output_frame)
-            output_frame = self.image_denoising(output_frame)
+            output_frame = self.__image_denoising(output_frame)
 
         return output_frame
 
