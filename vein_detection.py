@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import camera_handler as camera
+import hsv as hsv
 
 
 # Main Vein Detection class
@@ -8,6 +9,7 @@ class VeinDetection:
     def __init__(self, camera_id):
         self.__camera = camera.CameraHandler(camera_id)
         self.__clahe_amount = 2
+        self.__hsv = hsv.HSV()
 
     # Canny Edge Detection step, finds the edges of the body parts and veins
     # inside the supplied frame and returns the resulted frame
@@ -78,6 +80,7 @@ class VeinDetection:
     def run(self):
         while True:
             (ret, frame) = self.__camera.camera.read()
+            frame = self.__hsv.threshold_frame(frame)
             input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             output_frame = self.clahe(frame, self.__clahe_amount)
             display = np.hstack((input_frame_grayscaled, output_frame))
