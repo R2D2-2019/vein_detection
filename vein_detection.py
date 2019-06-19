@@ -15,6 +15,9 @@ class VeinDetection:
     # inside the supplied frame and returns the resulted frame
     # NOTE: This function should be made private (since these functions are going to get called inside run())
     # it's public for testing purposes now.
+    # Threshold values are the minimum and maximum values that are compared in the canny edge algorithm.
+    # The difference between the two is how mow sensitive your result will be.
+    # A lower gap means less edges might be detected. Vice versa.
     def canny_edge_detection(self, frame):
         return cv2.Canny(frame, threshold1=100, threshold2=200)
 
