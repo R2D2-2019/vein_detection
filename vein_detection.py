@@ -1,3 +1,4 @@
+"""Provides a class to detect veins in an image"""
 import cv2
 import numpy as np
 import camera_handler as camera

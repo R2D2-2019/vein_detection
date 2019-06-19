@@ -1,3 +1,4 @@
+"""Provides a class to use the basic functionality of a camera"""
 import cv2
 import sys
 
