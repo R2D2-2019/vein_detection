@@ -41,12 +41,17 @@ class VeinDetection:
 
         return output_frame
 
-    # Image Denoising is used to remove noice from supplied frame
-    # returns frame with less noise
+    # Image denoising is used to remove noise from supplied frame
+    # This implementation is primarily used to remove salt and pepper noise after CLAHE is used on a image
+    # The parameter kernel_size is used to determine the amount of pixels used for the kernel in the median blur
+    # A larger kernel means more pixels are used in the calculation but the image could become more blurry
+    # Returns frame with less noise
     # NOTE: This function should be made private (since these functions are going to get called inside run())
     # it's public for testing purposes now.
-    def image_denoising(self, frame):
-            return frame
+    def image_denoising(self, frame, kernel_size=5):
+        frame = cv2.medianBlur(frame, kernel_size)
+
+        return frame
 
     # Adaptive Thresholding is used to create a black/white image from supplied frame
     # returns a black/white image
