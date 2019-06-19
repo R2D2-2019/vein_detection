@@ -4,9 +4,13 @@ import camera_handler as camera
 import hsv as hsv
 
 
-# Main Vein Detection class
 class VeinDetection:
+    """ This class is used to give a good as possible representation
+    of the veins on a body part, using the input from an IR-camera device."""
     def __init__(self, camera_id):
+        """ The constructor.
+        :param camera_id: the id of the camera device 0=default, 1=connected device
+        """
         self.__camera = camera.CameraHandler(camera_id)
         self.__clahe_amount = 2
         self.__hsv = hsv.HSV()
@@ -17,6 +21,10 @@ class VeinDetection:
     # The difference between the two is how mow sensitive your result will be.
     # A lower gap means less edges might be detected. Vice versa.
     def __canny_edge_detection(self, frame):
+        """ Canny Edge Detection, find the edges of objects in an image
+        :param frame: frame obtained from the camera
+        :return: frame with canny edge detection applied
+        """
         return cv2.Canny(frame, threshold1=100, threshold2=200)
 
     # CLAHE (Contrast Limited Adaptive Histogram Equalization)
@@ -28,6 +36,11 @@ class VeinDetection:
     # The result of this function is a side-by-side comparison between
     # a grayscaled version of the original frame (left) and one with clahe applied (right)
     def __clahe(self, frame, amount=1):
+        """ Contrast Limited Adaptive Histogram Equalization, enhance the contrast in an image
+        :param frame: frame obtained from the camera
+        :param amount: amount of times you want to apply clahe to the frame
+        :return: frame with clahe applied
+        """
         input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # create a CLAHE object
@@ -46,13 +59,20 @@ class VeinDetection:
     # A larger kernel means more pixels are used in the calculation but the image could become more blurry
     # Returns frame with less noise
     def __image_denoising(self, frame, kernel_size=5):
+        """ Image denoising, remove noise from supplied image
+        :param frame: frame obtained from the camera
+        :param kernel_size: the amount of pixels used for the kernel in the median blur
+        :return: frame with median blur applied
+        """
         frame = cv2.medianBlur(frame, kernel_size)
 
         return frame
 
-    # Adaptive Thresholding is used to create a black/white image from supplied frame
-    # returns a black/white image
     def __adaptive_thresholding(self, frame):
+        """ Adaptive Thresholding, create a black/white image from supplied frame
+        :param frame: frame obtained from the camera
+        :return: frame in black/white
+        """
         return frame
 
     # this function provides the user with keyboard commands / actions
@@ -64,6 +84,11 @@ class VeinDetection:
     # press '[' to decrease clahe_amount
     # press 'h' to spawn the HSV slider
     def commands(self, frame, display):
+        """ This function provides the user with keyboard commands / actions
+        :param frame: frame obtained from the camera
+        :param display: camera stream
+        :return: void
+        """
         if cv2.waitKey(1) & 0xFF == ord('q'):
             self.__camera.exit_camera()
         elif cv2.waitKey(1) & 0xFF == ord('s'):
@@ -81,6 +106,9 @@ class VeinDetection:
     # This is the main loop for vein detection.
     # Run this after calling the constructor
     def run(self):
+        """ When this function is called, the main loop for vein detection will be executed
+        :return: void
+        """
         while True:
             (ret, frame) = self.__camera.camera.read()
             frame = self.__hsv.threshold_frame(frame)
