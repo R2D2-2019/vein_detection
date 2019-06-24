@@ -26,7 +26,6 @@ def stop(signal, frame):
     global should_stop
     should_stop = True
 
-
 signal.signal(signal.SIGINT, stop)
 signal.signal(signal.SIGTERM, stop)
 
