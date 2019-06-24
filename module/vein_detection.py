@@ -1,8 +1,8 @@
 """Provides a class to detect veins in an image"""
 import cv2
 import numpy as np
-import camera_handler as camera
-import hsv as hsv
+from module import camera_handler
+from module import hsv
 
 
 class VeinDetection:
@@ -12,7 +12,7 @@ class VeinDetection:
         """ The constructor.
         :param camera_id: the id of the camera device 0=default, 1=connected device
         """
-        self.__camera = camera.CameraHandler(camera_id)
+        self.__camera = camera_handler.CameraHandler(camera_id)
         self.__clahe_amount = 2
         self.__hsv = hsv.HSV()
 
