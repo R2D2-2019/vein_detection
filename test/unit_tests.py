@@ -1,3 +1,4 @@
+"""Provides a class to do unit tests on all functions"""
 import unittest
 import cv2
 from module import vein_detection
@@ -47,16 +48,24 @@ class UnitTest(unittest.TestCase):
         get loaded. The default image is processed by using clahe and denoising with default values.
         The length and values of the histograms of both images get compared.
         """
+
+        # Load pre-processed denoised clahe image
         test_image_clahe_denoised = cv2.imread('../module/img/test_image_clahe_denoised.png')
 
+        # Apply clahe to base image
         image_clahe = self.vd_class.clahe(self.base_image)
+        # Denoise the clahe image
         image_clahe_denoised = self.vd_class.image_denoising(image_clahe)
 
+        # Create histogram from denoised image
         histo_clahe_denoised = cv2.calcHist([image_clahe_denoised], [0], None, [256], [0, 256])
+        # Create histogram from the loaded pre-processed denoised image
         histo_test_clahe_denoised = cv2.calcHist([test_image_clahe_denoised], [0], None, [256], [0, 256])
 
+        # Check if the length of both histograms are the same
         self.assertEqual(len(histo_clahe_denoised), len(histo_test_clahe_denoised))
 
+        # For each histogram value check if they are the same
         for gray_value in range(len(histo_clahe_denoised)):
             self.assertEqual(histo_clahe_denoised[gray_value], histo_test_clahe_denoised[gray_value])
 
@@ -72,15 +81,21 @@ class UnitTest(unittest.TestCase):
         get loaded. The default image is processed by using clahe with default values.
         The length and values of the histograms of both images get compared.
         """
+        # Load pre-processed clahe test image
         test_image_clahe = cv2.imread('../module/img/test_image_clahe.png')
 
+        # Apply clahe to base image
         image_clahe = self.vd_class.clahe(self.base_image)
 
+        # Create histogram from clahe image
         histo_clahe = cv2.calcHist([image_clahe], [0], None, [256], [0, 256])
+        # Create histogram from pre-processed clahe image
         histo_test_clahe = cv2.calcHist([test_image_clahe], [0], None, [256], [0, 256])
 
+        # Check if the length of both histograms are the same
         self.assertEqual(len(histo_clahe), len(histo_test_clahe))
 
+        # For each histogram value check if they are the same
         for gray_value in range(len(histo_clahe)):
             self.assertEqual(histo_clahe[gray_value], histo_test_clahe[gray_value])
 
