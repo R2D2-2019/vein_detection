@@ -41,7 +41,23 @@ class UnitTest(unittest.TestCase):
         pass
 
     def test_clahe(self):
-        pass
+        """" When this function is called a default image (test_image.png)
+        and a already processed image (test_image_clahe.png)
+        get loaded. The default image is processed by using clahe with default values.
+        The length and values of the histograms of both images get compared.
+        """
+        image = cv2.imread('../module/img/test_image.png')
+        test_image_clahe = cv2.imread('../module/img/test_image_clahe.png')
+
+        image_clahe = self.vd_class.clahe(image)
+
+        histo_clahe = cv2.calcHist([image_clahe], [0], None, [256], [0, 256])
+        histo_test_clahe = cv2.calcHist([test_image_clahe], [0], None, [256], [0, 256])
+
+        self.assertEqual(len(histo_clahe), len(histo_test_clahe))
+
+        for gray_value in range(len(histo_clahe)):
+            self.assertEqual(histo_clahe[gray_value], histo_test_clahe[gray_value])
 
 if __name__ == '__main__':
     unittest.main()
