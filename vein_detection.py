@@ -65,9 +65,7 @@ class VeinDetection:
         :param kernel_size: the amount of pixels used for the kernel in the median blur
         :return: frame with median blur applied
         """
-        frame = cv2.medianBlur(frame, kernel_size)
-
-        return frame
+        return cv2.medianBlur(frame, kernel_size)
 
     def __adaptive_thresholding(self, frame):
         """ Adaptive Thresholding, create a black/white image from supplied frame
