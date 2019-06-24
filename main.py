@@ -3,16 +3,16 @@ from sys import platform
 import signal
 
 from client.comm import Comm
-from mod import Module
+from module import mod
 
-from vein_detection import VeinDetection
+from module import vein_detection
 
 should_stop = False
 
 
 def main():
     print("Starting application...\n")
-    module = Module(Comm(), VeinDetection(0))
+    module = mod.Module(Comm(), vein_detection.VeinDetection(0))
     print("Module created...")
 
     while not should_stop:

@@ -1,9 +1,9 @@
 from client.comm import BaseComm
 from common.frame_enum import FrameType
-from vein_detection import VeinDetection
+from module import vein_detection
 
 class Module:
-    def __init__(self, comm: BaseComm, vd_class: VeinDetection):
+    def __init__(self, comm: BaseComm, vd_class: vein_detection.VeinDetection):
         self.comm = comm
         self.comm.listen_for([FrameType.ACTIVITY_LED_STATE])
         self.vd_class = vd_class
