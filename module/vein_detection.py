@@ -91,7 +91,7 @@ class VeinDetection:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             self.__camera.exit_camera()
         elif cv2.waitKey(1) & 0xFF == ord('s'):
-            self.__camera.show_current_frame(frame)
+            self.__camera.get_frame(frame)
         elif cv2.waitKey(1) & 0xFF == ord('v'):
             cv2.imshow('Screenshot', display)
         elif cv2.waitKey(1) & 0xFF == ord('['):
