@@ -1,9 +1,9 @@
-import vein_detection as vd
+from module import vein_detection
 import time
 
 
 def main():
-    vd_class = vd.VeinDetection(1)
+    vd_class = vein_detection.VeinDetection(0)
 
     # wait for camera to warm up
     time.sleep(1)
