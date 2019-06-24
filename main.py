@@ -5,12 +5,14 @@ import signal
 from client.comm import Comm
 from mod import Module
 
+from vein_detection import VeinDetection
+
 should_stop = False
 
 
 def main():
     print("Starting application...\n")
-    module = Module(Comm())
+    module = Module(Comm(), VeinDetection(0))
     print("Module created...")
 
     while not should_stop:
