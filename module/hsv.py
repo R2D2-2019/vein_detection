@@ -4,20 +4,20 @@ import numpy as np
 
 
 class HSV:
-    def __init__(self, trackbar_name="HSV slider"):
+    def __init__(self, trackbar_name="HSV slider", low_hsv = np.array([0, 0, 0]), high_hsv = np.array([255, 255, 255])):
         """ The constructor.
         :param trackbar_name: Renames the trackbar window name, can be left blank
         """
         self.__trackbar_name = trackbar_name
-        self.__low_hsv = np.array([0, 0, 0])
-        self.__max_hsv = np.array([255, 255, 255])
+        self.__low_hsv = low_hsv
+        self.__max_hsv = high_hsv
         self.__low_hsv_names = ["H-Min", "S-Min", "V-Min"]
         self.__max_hsv_names = ["H-Max", "S-Max", "V-Max"]
         self.__is_trackbar_enabled = False
 
     @staticmethod
     def __convert_to_hsv(frame):
-        """ Conevert to hsv, convert a specified frame to the HSV color space
+        """ Convert to hsv, convert a specified frame to the HSV color space
         :param frame: frame obtained from the camera
         :return: frame that is converted to the HSV color space
         """
