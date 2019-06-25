@@ -13,43 +13,6 @@ class UnitTest(unittest.TestCase):
     vd_class = vein_detection.VeinDetection(0)
     base_image = cv2.imread('../module/img/test_image.png')
 
-    def test_hsv(self):
-        """" When this function is called a default image (test_image.png)
-        and a already processed image (test_image_hsv.png)
-        gets loaded. The default image is processed by the threshold_frame function.
-        The length and values of the histograms of both images get compared.
-        If they are all equal then the test is a success
-        """
-        # Call the constructor with pre-defined ranges.
-        # Note: Changing these ranges will result in a failed test, you will then need to create a new
-        # pre-processed image for this test to pass.
-        hsv_class = hsv.HSV(low_hsv=np.array([0, 0, 36]), high_hsv=np.array([255, 82, 255]))
-
-        # Load the pre-proccessed hsv image
-        test_image_hsv = cv2.imread('../module/img/test_image_hsv.png')
-
-        # Call the threshold frame function to create a ranged hsv image
-        image_hsv = hsv_class.threshold_frame(self.base_image)
-
-        # Check if height, width and channels of output and result are equal to each other
-        test_image_hsv_height, test_image_hsv_width, test_image_hsv_channels = test_image_hsv.shape
-        image_hsv_height, image_hsv_width, image_hsv_channels = image_hsv.shape
-        self.assertEqual(test_image_hsv_height, image_hsv_height)
-        self.assertEqual(test_image_hsv_width, image_hsv_width)
-        self.assertEqual(test_image_hsv_channels, image_hsv_channels)
-
-        # Create histogram for both images
-        histo_test_hsv = cv2.calcHist([test_image_hsv], [0], None, [256], [0, 256])
-        histo_hsv = cv2.calcHist([image_hsv], [0], None, [256], [0, 256])
-
-        # Check if the length of both histograms are equal to eachother
-        self.assertEqual(len(histo_hsv), len(histo_test_hsv))
-
-        # Check if the values of both histograms are equal to eachother
-        for gray_value in range(len(histo_hsv)):
-            self.assertEqual(histo_hsv[gray_value], histo_test_hsv[gray_value])
-
-
     def test_image_denoising(self):
         """" When this function is called a default image (test_image.png)
         and a already processed image (test_image_clahe_denoised.png)
