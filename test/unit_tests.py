@@ -31,6 +31,13 @@ class UnitTest(unittest.TestCase):
         # Call the threshold frame function to create a ranged hsv image
         image_hsv = hsv_class.threshold_frame(self.base_image)
 
+        # Check if height, width and channels of output and result are equal to each other
+        test_image_hsv_height, test_image_hsv_width, test_image_hsv_channels = test_image_hsv.shape
+        image_hsv_height, image_hsv_width, image_hsv_channels = image_hsv.shape
+        self.assertEqual(test_image_hsv_height, image_hsv_height)
+        self.assertEqual(test_image_hsv_width, image_hsv_width)
+        self.assertEqual(test_image_hsv_channels, image_hsv_channels)
+
         # Create histogram for both images
         histo_test_hsv = cv2.calcHist([test_image_hsv], [0], None, [256], [0, 256])
         histo_hsv = cv2.calcHist([image_hsv], [0], None, [256], [0, 256])
@@ -41,6 +48,7 @@ class UnitTest(unittest.TestCase):
         # Check if the values of both histograms are equal to eachother
         for gray_value in range(len(histo_hsv)):
             self.assertEqual(histo_hsv[gray_value], histo_test_hsv[gray_value])
+
 
     def test_image_denoising(self):
         """" When this function is called a default image (test_image.png)
@@ -56,6 +64,13 @@ class UnitTest(unittest.TestCase):
         image_clahe = self.vd_class.clahe(self.base_image)
         # Denoise the clahe image
         image_clahe_denoised = self.vd_class.image_denoising(image_clahe)
+
+        # Check if height, width and channels of output and result are equal to each other
+        test_image_clahe_denoised_height, test_image_clahe_denoised_width, test_image_clahe_denoised_channels = test_image_clahe_denoised.shape
+        image_clahe_denoised_height, image_clahe_denoised_width, image_clahe_denoised_channels = image_clahe_denoised.shape
+        self.assertEqual(test_image_clahe_denoised_height, image_clahe_denoised_height)
+        self.assertEqual(test_image_clahe_denoised_width, image_clahe_denoised_width)
+        self.assertEqual(test_image_clahe_denoised_channels, image_clahe_denoised_channels)
 
         # Create histogram from denoised image
         histo_clahe_denoised = cv2.calcHist([image_clahe_denoised], [0], None, [256], [0, 256])
@@ -86,6 +101,13 @@ class UnitTest(unittest.TestCase):
 
         # Apply clahe to base image
         image_clahe = self.vd_class.clahe(self.base_image)
+
+        # Check if height, width and channels of output and result are equal to each other
+        test_image_clahe_height, test_image_clahe_width, test_image_clahe_channels = test_image_clahe.shape
+        image_clahe_height, image_clahe_width, image_clahe_channels = image_clahe.shape
+        self.assertEqual(test_image_clahe_height, image_clahe_height)
+        self.assertEqual(test_image_clahe_width, image_clahe_width)
+        self.assertEqual(test_image_clahe_channels, image_clahe_channels)
 
         # Create histogram from clahe image
         histo_clahe = cv2.calcHist([image_clahe], [0], None, [256], [0, 256])
