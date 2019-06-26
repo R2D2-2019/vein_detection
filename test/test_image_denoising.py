@@ -1,4 +1,4 @@
-"""this module tests the hsv class"""
+"""this module tests the image denoising class"""
 import sys
 import os
 
@@ -8,16 +8,16 @@ import module.vein_detection
 import cv2
 import numpy as np
 
-# The base image on wich the tests will run on
+# The base image on which the tests will run on
 base_image = cv2.imread('test/img/test_image.png')
 
-# Call the constructor.
+# Call the constructor
 vein_detection_class = module.vein_detection.VeinDetection(0)
 
 # Load the pre-processed  image
 test_image_denoised = cv2.imread('test/img/test_image_denoised.png')
 
-# Call the image denoising frame function to create a denoised image
+# Call the image denoising function to create a denoised image
 image_denoised = vein_detection_class.image_denoising(base_image)
 
 # Create histogram for both images
