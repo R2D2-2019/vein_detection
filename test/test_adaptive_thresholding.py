@@ -6,7 +6,6 @@ ROOT_DIR = os.path.abspath(os.curdir)
 sys.path.append(ROOT_DIR)
 import module.vein_detection
 import cv2
-import numpy as np
 
 # The base image on which the tests will run on
 base_image = cv2.imread('test/img/test_image.png')

@@ -1,6 +1,7 @@
 """this module tests the hsv class"""
 import sys
 import os
+
 ROOT_DIR = os.path.abspath(os.curdir)
 sys.path.append(ROOT_DIR)
 import module.hsv
