@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 
 # The base image on which the tests will run on
-base_image = cv2.imread('img/test_image.png')
+base_image = cv2.imread('test/img/test_image.png')
 
 # The base image gets grayscaled because adaptive thresholding needs a gray image
 base_image_grayscaled = cv2.cvtColor(base_image, cv2.COLOR_BGR2GRAY)
