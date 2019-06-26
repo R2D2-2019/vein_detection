@@ -72,6 +72,11 @@ class VeinDetection:
     # Our implementation of adaptive thresholding uses Otsu's binarization.
     # With Otsu's binarization the threshold in an image gets calculated so that the thresholding works on every image.
     # Instead of getting the best threshold by trial and error Otsu's method can calculate the best threshold.
+    # The parameter 0 is the threshold value. This value is left at 0 because Otsu is used to calculate the threshold.
+    # The parameter 255 is the gray value the parts of the image get when they are above the threshold.
+    # THRESH_BINARY makes everything under the threshold black (0)
+    # and everything above the threshold the parameter color in this case 255.
+    # THRESH_OTSU is used to calculate the best threshold value.
     def adaptive_thresholding(self, frame):
         """ Adaptive Thresholding, create a black/white image from supplied frame
         :param frame: frame obtained from the camera
