@@ -2,23 +2,21 @@
 import sys
 import os
 ROOT_DIR = os.path.abspath(os.curdir)
-print(str(ROOT_DIR))
 sys.path.append(ROOT_DIR)
-from module import hsv
+import module.hsv
 import cv2
 import numpy as np
 
 # The base image on wich the tests will run on
-base_image = cv2.imread('C:/ti-software/vein-detection/vein_detection/test_image.png')
+base_image = cv2.imread('test/img/test_image.png')
 
 # Call the constructor with pre-defined ranges.
 # Note: Changing these ranges will result in a failed test, you will then need to create a new
 # pre-processed image for these tests to pass.
-hsv_class = hsv.HSV(low_hsv=np.array([0, 0, 36]), high_hsv=np.array([255, 82, 255]))
+hsv_class = module.hsv.HSV(low_hsv=np.array([0, 0, 36]), high_hsv=np.array([255, 82, 255]))
 
 # Load the pre-proccessed hsv image
-print(str(ROOT_DIR) + '\\test_image_hsv.png')
-test_image_hsv = cv2.imread('C:/ti-software/vein-detection/vein_detection/test_image_hsv.png')
+test_image_hsv = cv2.imread('test/img/test_image_hsv.png')
 
 # Call the threshold frame function to create a ranged hsv image
 image_hsv = hsv_class.threshold_frame(base_image)
