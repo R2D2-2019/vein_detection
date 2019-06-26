@@ -67,12 +67,22 @@ class VeinDetection:
         """
         return cv2.medianBlur(frame, kernel_size)
 
+    # Adaptive thresholding is used to create a black/white image in which the veins can be clearly distinguished
+    # from the skin.
+    # Our implementation of adaptive thresholding uses Otsu's binarization.
+    # With Otsu's binarization the threshold in an image gets calculated so that the thresholding works on every image.
+    # Instead of getting the best threshold by trial and error Otsu's method can calculate the best threshold.
+    # The parameter 0 is the threshold value. This value is left at 0 because Otsu is used to calculate the threshold.
+    # The parameter 255 is the gray value the parts of the image get when they are above the threshold.
+    # THRESH_BINARY makes everything under the threshold black (0)
+    # and everything above the threshold the parameter color in this case 255.
+    # THRESH_OTSU is used to calculate the best threshold value.
     def adaptive_thresholding(self, frame):
         """ Adaptive Thresholding, create a black/white image from supplied frame
         :param frame: frame obtained from the camera
         :return: frame in black/white
         """
-        return frame
+        return cv2.threshold(frame,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
 
     # this function provides the user with keyboard commands / actions
     # These commands can be helpful for debugging
@@ -113,6 +123,7 @@ class VeinDetection:
             frame = self.__hsv.threshold_frame(frame)
             input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             output_frame = self.clahe(frame, self.__clahe_amount)
+            output_frame = self.adaptive_thresholding(output_frame)
             display = np.hstack((input_frame_grayscaled, output_frame))
             cv2.imshow('Vein Detection', display)
             self.commands(frame, display)
