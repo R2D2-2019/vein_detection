@@ -7,14 +7,16 @@ sys.path.append(ROOT_DIR)
 import module.vein_detection
 import cv2
 
+# WARNING: Any big changes in the algorithm will result in a failed test
+# in this case you will need to create a new pre-processed image in order for the test to pass
+# Load the pre-processed  image
+test_image_clahe = cv2.imread('test/img/test_image_clahe.png')
+
 # The base image on which the tests will run on
 base_image = cv2.imread('test/img/test_image.png')
 
 # Call the constructor
 vein_detection_class = module.vein_detection.VeinDetection(0)
-
-# Load the pre-processed  image
-test_image_clahe = cv2.imread('test/img/test_image_clahe.png')
 
 # Call the image clahe function to create an image with CLAHE applied
 image_clahe = vein_detection_class.clahe(base_image)
