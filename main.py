@@ -1,36 +1,14 @@
-from time import sleep
-from sys import platform
-import signal
-
-from client.comm import Comm
-from module import mod
-
-from module import vein_detection
-
-should_stop = False
+from modules.vein_detection.module.vein_detection import VeinDetection
+import time
 
 
 def main():
-    print("Starting application...\n")
-    module = mod.Module(Comm(), vein_detection.VeinDetection(0))
-    print("Module created...")
+    vd_class = VeinDetection(0)
 
-    while not should_stop:
-        module.process()
-        sleep(0.05)
+    # wait for camera to warm up
+    time.sleep(1)
+    vd_class.run()
 
-    module.stop()
-
-
-def stop(signal, frame):
-    global should_stop
-    should_stop = True
-
-signal.signal(signal.SIGINT, stop)
-signal.signal(signal.SIGTERM, stop)
-
-if platform != "win32":
-    signal.signal(signal.SIGQUIT, stop)
 
 if __name__ == "__main__":
     main()
