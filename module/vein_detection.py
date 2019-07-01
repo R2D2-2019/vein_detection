@@ -54,46 +54,46 @@ class VeinDetection:
 
         return output_frame
 
-    # Image denoising is used to remove noise from supplied frame
-    # This implementation is primarily used to remove salt and pepper noise after CLAHE is used on a image
-    # The parameter kernel_size is used to determine the amount of pixels used for the kernel in the median blur
-    # A larger kernel means more pixels are used in the calculation but the image could become more blurry
-    # Returns frame with less noise
+
     def image_denoising(self, frame, kernel_size=5):
-        """ Image denoising, remove noise from supplied image
+        """ Image denoising is used to remove noise from supplied frame
+        This implementation is primarily used to remove salt and pepper noise after CLAHE is used on a image
+        The parameter kernel_size is used to determine the amount of pixels used for the kernel in the median blur
+        A larger kernel means more pixels are used in the calculation but the image could become more blurry
+        Returns frame with less noise
         :param frame: frame obtained from the camera
         :param kernel_size: the amount of pixels used for the kernel in the median blur
         :return: frame with median blur applied
         """
         return cv2.medianBlur(frame, kernel_size)
 
-    # Adaptive thresholding is used to create a black/white image in which the veins can be clearly distinguished
-    # from the skin.
-    # Our implementation of adaptive thresholding uses Otsu's binarization.
-    # With Otsu's binarization the threshold in an image gets calculated so that the thresholding works on every image.
-    # Instead of getting the best threshold by trial and error Otsu's method can calculate the best threshold.
-    # The parameter 0 is the threshold value. This value is left at 0 because Otsu is used to calculate the threshold.
-    # The parameter 255 is the gray value the parts of the image get when they are above the threshold.
-    # THRESH_BINARY makes everything under the threshold black (0)
-    # and everything above the threshold the parameter color in this case 255.
-    # THRESH_OTSU is used to calculate the best threshold value.
+
     def adaptive_thresholding(self, frame):
-        """ Adaptive Thresholding, create a black/white image from supplied frame
+        """ Adaptive thresholding is used to create a black/white image in which the veins can be clearly distinguished
+        from the skin.
+        Our implementation of adaptive thresholding uses Otsu's binarization.
+        With Otsu's binarization the threshold in an image gets calculated so that the thresholding works on every image.
+        Instead of getting the best threshold by trial and error Otsu's method can calculate the best threshold.
+        The parameter 0 is the threshold value. This value is left at 0 because Otsu is used to calculate the threshold.
+        The parameter 255 is the gray value the parts of the image get when they are above the threshold.
+        THRESH_BINARY makes everything under the threshold black (0)
+        and everything above the threshold the parameter color in this case 255.
+        THRESH_OTSU is used to calculate the best threshold value.
         :param frame: frame obtained from the camera
         :return: frame in black/white
         """
         return cv2.threshold(frame,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
 
-    # this function provides the user with keyboard commands / actions
-    # These commands can be helpful for debugging
-    # press 's' to call show_current_frame(frame), shows current camera output frame
-    # press 'q' to call exit_camera()
-    # press 'v' to show a snapshot of the current display
-    # press ']' to increase clahe_amount
-    # press '[' to decrease clahe_amount
-    # press 'h' to spawn the HSV slider
+
     def commands(self, frame, display):
-        """ This function provides the user with keyboard commands / actions
+        """ this function provides the user with keyboard commands / actions
+        These commands can be helpful for debugging
+        press 's' to call show_current_frame(frame), shows current camera output frame
+        press 'q' to call exit_camera()
+        press 'v' to show a snapshot of the current display
+        press ']' to increase clahe_amount
+        press '[' to decrease clahe_amount
+        press 'h' to spawn the HSV slider
         :param frame: frame obtained from the camera
         :param display: camera stream
         :return: void
