@@ -16,28 +16,28 @@ class VeinDetection:
         self.__clahe_amount = 2
         self.__hsv = hsv.HSV()
 
-    # Canny Edge Detection step, finds the edges of the body parts and veins
-    # inside the supplied frame and returns the resulted frame
-    # Threshold values are the minimum and maximum values that are compared in the canny edge algorithm.
-    # The difference between the two is how mow sensitive your result will be.
-    # A lower gap means less edges might be detected. Vice versa.
     def canny_edge_detection(self, frame):
         """ Canny Edge Detection, find the edges of objects in an image
+        Canny Edge Detection step, finds the edges of the body parts and veins
+        inside the supplied frame and returns the resulted frame
+        Threshold values are the minimum and maximum values that are compared in the canny edge algorithm.
+        The difference between the two is how mow sensitive your result will be.
+        A lower gap means less edges might be detected. Vice versa.
         :param frame: frame obtained from the camera
         :return: frame with canny edge detection applied
         """
         return cv2.Canny(frame, threshold1=100, threshold2=200)
 
-    # CLAHE (Contrast Limited Adaptive Histogram Equalization)
-    # creates a better constrast between veins and the skin on supplied frame
-    # returns the resulted frame
-    # The frame (image) is devided into small blocks 8x8 pixels by default
-    # Each of these blocks are then histogram equalized as usual
-    # Contrast limiting is applied to avoid noise amplification
-    # The result of this function is a side-by-side comparison between
-    # a grayscaled version of the original frame (left) and one with clahe applied (right)
     def clahe(self, frame, amount=1):
         """ Contrast Limited Adaptive Histogram Equalization, enhance the contrast in an image
+        CLAHE (Contrast Limited Adaptive Histogram Equalization)
+        creates a better constrast between veins and the skin on supplied frame
+        returns the resulted frame
+        The frame (image) is devided into small blocks 8x8 pixels by default
+        Each of these blocks are then histogram equalized as usual
+        Contrast limiting is applied to avoid noise amplification
+        The result of this function is a side-by-side comparison between
+        a grayscaled version of the original frame (left) and one with clahe applied (right)
         :param frame: frame obtained from the camera
         :param amount: amount of times you want to apply clahe to the frame
         :return: frame with clahe applied
