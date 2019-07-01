@@ -1,10 +1,5 @@
 """this module tests the hsv class"""
-import sys
-import os
-
-ROOT_DIR = os.path.abspath(os.curdir)
-sys.path.append(ROOT_DIR)
-import module.hsv
+from modules.vein_detection.module.hsv import HSV
 import cv2
 import numpy as np
 
@@ -14,7 +9,7 @@ base_image = cv2.imread('test/img/test_image.png')
 # Call the constructor with pre-defined ranges.
 # WARNING: Changing these ranges will result in a failed test, you will then need to create a new
 # pre-processed image for these tests to pass.
-hsv_class = module.hsv.HSV(low_hsv=np.array([0, 0, 36]), high_hsv=np.array([255, 82, 255]))
+hsv_class = HSV(low_hsv=np.array([0, 0, 36]), high_hsv=np.array([255, 82, 255]))
 
 # Load the pre-proccessed hsv image
 test_image_hsv = cv2.imread('test/img/test_image_hsv.png')

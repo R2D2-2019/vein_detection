@@ -1,10 +1,5 @@
 """this module tests the image denoising class"""
-import sys
-import os
-
-ROOT_DIR = os.path.abspath(os.curdir)
-sys.path.append(ROOT_DIR)
-import module.vein_detection
+from modules.vein_detection.module.vein_detection import VeinDetection
 import cv2
 
 # WARNING: Any big changes in the algorithm will result in a failed test
@@ -16,7 +11,7 @@ test_image_denoised = cv2.imread('test/img/test_image_denoised.png')
 base_image = cv2.imread('test/img/test_image.png')
 
 # Call the constructor
-vein_detection_class = module.vein_detection.VeinDetection(0)
+vein_detection_class = VeinDetection(0)
 
 # Call the image denoising function to create a denoised image
 image_denoised = vein_detection_class.image_denoising(base_image)
