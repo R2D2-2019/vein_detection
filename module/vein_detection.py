@@ -1,9 +1,8 @@
 """Provides a class to detect veins in an image"""
 import cv2
 import numpy as np
-from module import camera_handler
-from module import hsv
-
+from modules.vein_detection.module.camera_handler import CameraHandler
+from modules.vein_detection.module.hsv import HSV
 
 class VeinDetection:
     """ This class is used to give a good as possible representation
@@ -12,9 +11,9 @@ class VeinDetection:
         """ The constructor.
         :param camera_id: the id of the camera device 0=default, 1=connected device
         """
-        self.__camera = camera_handler.CameraHandler(camera_id)
+        self.__camera = CameraHandler(camera_id)
         self.__clahe_amount = 2
-        self.__hsv = hsv.HSV()
+        self.__hsv = HSV()
 
     # Canny Edge Detection step, finds the edges of the body parts and veins
     # inside the supplied frame and returns the resulted frame
