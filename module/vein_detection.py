@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from modules.vein_detection.module.camera_handler import CameraHandler
 from modules.vein_detection.module.hsv import HSV
+from PIL import Image
 
 class VeinDetection:
     """ This class is used to give a good as possible representation
@@ -119,10 +120,20 @@ class VeinDetection:
         """
         while True:
             (ret, frame) = self.__camera.camera.read()
+            img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             frame = self.__hsv.threshold_frame(frame)
+            img1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             input_frame_grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            img2 = input_frame_grayscaled
             output_frame_clahe = self.clahe(frame, self.__clahe_amount)
+            img3 = output_frame_clahe
             output_frame_adpt = self.adaptive_thresholding(output_frame_clahe)
-            display = np.hstack((input_frame_grayscaled, output_frame_clahe, output_frame_adpt))
+            img4 = output_frame_adpt
+            output_frame_canny = self.canny_edge_detection(output_frame_adpt)
+            img5 = output_frame_canny
+
+            display_top_lane = np.hstack((img, img1, img2))
+            display_bot_lane = np.hstack((img3, img4, img5))
+            display = np.vstack((display_top_lane, display_bot_lane))
             cv2.imshow('Vein Detection', display)
             self.commands(frame, display)
