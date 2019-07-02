@@ -1,12 +1,6 @@
 """this module tests the adaptive thresholding class"""
-import sys
-import os
-
-ROOT_DIR = os.path.abspath(os.curdir)
-sys.path.append(ROOT_DIR)
-import module.vein_detection
+from modules.vein_detection.module.vein_detection import VeinDetection
 import cv2
-
 
 # WARNING: Any big changes in the algorithm will result in a failed test
 # in this case you will need to create a new pre-processed image in order for the test to pass
@@ -20,7 +14,7 @@ base_image = cv2.imread('test/img/test_image.png')
 base_image_grayscaled = cv2.cvtColor(base_image, cv2.COLOR_BGR2GRAY)
 
 # Call the constructor
-vein_detection_class = module.vein_detection.VeinDetection(0)
+vein_detection_class = VeinDetection(0)
 
 # Call the adaptive thresholding function to create a thresholded image
 image_adaptive_thresholding = vein_detection_class.adaptive_thresholding(base_image_grayscaled)
